@@ -1,21 +1,26 @@
 ﻿#!/usr/bin/python3
-def pascalsTriangle():
-    height = int(input("Enter height of triangle:"))
-    t_List = []
+"""
+This module calculate n pascal triangle
+"""
 
-    for R in range(height):
-        n_List = []
-        for C in range(R + 1):
-            if C == 0 or C == R:
-                n_List.append(1)
-            else:
-                # Sum the two values from the previous row
-                n_List.append(t_List[R - 1][C - 1] + t_List[R - 1][C])
-        t_List.append(n_List)
 
-    # Print the triangle
-    for row in t_List:
-        print(row)
+def pascal_triangle(n):
+    """
+    Returns a list of lists of integers
+    representing the Pascal’s triangle of n.
+    """
+    if n <= 0:
+        return []
 
-# Call the function to see the output
-pascalsTriangle()
+    triangle = [[1]]  # Initialize the triangle with the first row
+
+    for i in range(1, n):
+        prev_row = triangle[-1]  # Get the last row of the triangle
+        new_row = [1]  # Start the new row with 1
+        for j in range(1, i):
+            # Compute the value by summing the two values above it
+            new_row.append(prev_row[j - 1] + prev_row[j])
+        new_row.append(1)  # End the row with 1
+        triangle.append(new_row)
+
+    return triangle
